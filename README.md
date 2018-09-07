@@ -37,7 +37,8 @@
 #Size:39,261 bases
 
 #BED file: save as "TRG_genes.bed"
-```chr3	169482308	169482848
+```Bash
+chr3	169482308	169482848
 chr5	1253262	1295184
 chr8	73921097	73960357
 chr14	24708849	24711880
@@ -69,6 +70,6 @@ infile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19
 outfile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG
 vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --out ${outdir}/${outfile}.vcf
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf 
-done```
-
+done
+```
 #End of Script
