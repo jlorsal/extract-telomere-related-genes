@@ -37,7 +37,7 @@
 #Size:39,261 bases
 
 #BED file: save as "TRG_genes.bed"
-```Bash
+```
 chr3	169482308	169482848
 chr5	1253262	1295184
 chr8	73921097	73960357
