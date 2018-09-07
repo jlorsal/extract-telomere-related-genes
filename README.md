@@ -37,7 +37,7 @@
 #Size:39,261 bases
 
 #BED file: save as "TRG_genes.bed"
-```
+```[Bash]
 chr3	169482308	169482848
 chr5	1253262	1295184
 chr8	73921097	73960357
@@ -47,7 +47,7 @@ chr20	62289163	62328416
 chrX	153991031	154005964
 ```
 
-```
+```[Bash]
 module load vcftools/0.1.14
 basedir=/lustre/jlorsal/hiseq4000/run40/soloIPF
 for i in {1..9}
