@@ -44,9 +44,11 @@ chr8	73921097	73960357
 chr14	24708849	24711880
 chr16	14529558	14726585
 chr20	62289163	62328416
-chrX	153991031	154005964```
+chrX	153991031	154005964
+```
 
-```module load vcftools/0.1.14
+```
+module load vcftools/0.1.14
 basedir=/lustre/jlorsal/hiseq4000/run40/soloIPF
 for i in {1..9}
 do
@@ -58,9 +60,11 @@ infile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19
 outfile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG
 vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --out ${outdir}/${outfile}.vcf
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf 
-done```
+done
+```
 
-```for i in {10..12}
+```
+for i in {10..12}
 do
 sample=IPFBCN${i}
 indir=${basedir}/${sample}
