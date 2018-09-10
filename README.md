@@ -1,6 +1,7 @@
 # Extract Telomere Related Genes from FPF (MM samples)
 
-#These genes are:<br>
+# Telomere-Related Genes are:
+<br>
 > TERT gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=TERT<br>
 chr5:1,253,262-1,295,184(GRCh37/hg19)<br>
 Orientation:Minus strand<br>
