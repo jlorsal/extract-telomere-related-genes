@@ -37,8 +37,7 @@ chr8:73,921,097-73,960,357(GRCh37/hg19)<br>
 Orientation:Plus strand<br>
 Size:39,261 bases<br>
 
-<br>
-BED file: save as plain text and name as "TRG_genes.bed"<br>
+#BED file: save as plain text and name as "TRG_genes.bed"<br>
 ```[Bash]
 chr3	169482308	169482848
 chr5	1253262	1295184
@@ -49,6 +48,7 @@ chr20	62289163	62328416
 chrX	153991031	154005964
 ```
 
+#Now run this code in the shell
 ```[Bash]
 module load vcftools/0.1.14
 basedir=/lustre/jlorsal/hiseq4000/run40/soloIPF
@@ -64,7 +64,7 @@ vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --out ${
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf 
 done
 ```
-
+#And this code
 ```
 for i in {10..12}
 do
