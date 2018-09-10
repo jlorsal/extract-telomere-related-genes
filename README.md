@@ -5,7 +5,7 @@
 chr5:1,253,262-1,295,184(GRCh37/hg19)<br>
 Orientation:Minus strand<br>
 Size:41,923 bases<br>
-<br>
+
 > TERC gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=TERC<br>
 chr3:169,482,308-169,482,848(GRCh37/hg19)<br>
 Orientation:Minus strand<br>
@@ -25,7 +25,7 @@ Size:197,028 bases<br>
 chr20:62,289,163-62,328,416(GRCh37/hg19)<br>
 Orientation:Plus strand<br>
 Size:39,254 bases<br>
-<br>
+
 > TINF2 gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=TINF2
 chr14:24,708,849-24,711,880(GRCh37/hg19)
 Orientation:Minus strand
