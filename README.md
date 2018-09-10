@@ -50,7 +50,7 @@ chrX	153991031	154005964
 
 #Now run this code in the shell
 ```[Bash]
-module load vcftools/0.1.14
+module load vcftools/0.1.14 htslib/1.3.1
 basedir=/lustre/jlorsal/hiseq4000/run40/soloIPF
 for i in {1..9}
 do
@@ -78,4 +78,103 @@ vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --out ${
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf 
 done
 ```
+#Copy VCF's of interest to a safe place
+```[Bash]
+find . -type f -name "*.TRG.vcf" | sort > ./TRG/TRG_list
+# Or
+find . -type f -name "*.TRG.vcf" -exec basename {} \; | sort
+indir=${indir}
+cp ${indir}/IPFBCN01/IPFBCN01.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN02/IPFBCN02.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN03/IPFBCN03.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN04/IPFBCN04.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+
+cp ${indir}/IPFBCN05/IPFBCN05.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN06/IPFBCN06.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN07/IPFBCN07.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN08/IPFBCN08.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+
+cp ${indir}/IPFBCN09/IPFBCN09.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN10/IPFBCN10.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN11/IPFBCN11.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+cp ${indir}/IPFBCN12/IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
+
+# Then bgzip compress and tabix:
+cd ${indir}/TRG/
+infile=IPFBCN01.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN02.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN03.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN04.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN05.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN06.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN07.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN08.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN09.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN10.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN11.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+infile=IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile=${infile}.gz
+bgzip -c ${infile} > ${outfile}
+tabix -p vcf ${outfile}
+
+# Merge all VCF's
+vcf-merge \
+IPFBCN01.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN02.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN03.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN04.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN05.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN06.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN07.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN08.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN09.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN10.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN11.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
+IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz > IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz
+
+
 #End of Script
