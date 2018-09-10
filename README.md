@@ -184,6 +184,7 @@ vcftools --vcf IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.PA
   --recode-INFO SNPEFF_GENE_NAME \
   --out tmp
 mv tmp.recode.vcf IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.PASS.selectedINFOfields.vcf
+rm *.recode.vcf
 ```
 
 #End of Script
