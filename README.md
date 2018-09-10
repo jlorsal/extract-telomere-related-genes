@@ -10,17 +10,17 @@ Size:41,923 bases<br>
 chr3:169,482,308-169,482,848(GRCh37/hg19)<br>
 Orientation:Minus strand<br>
 Size:541 bases<br>
-<br>
+
 > DKC1 gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=DKC1<br>
 chrX:153,991,031-154,005,964(GRCh37/hg19)<br>
 Orientation:Plus strand<br>
 Size:14,934 bases<br>
-<br>
+
 > PARN gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=PARN<br>
 chr16:14,529,558-14,726,585(GRCh37/hg19)<br>
 Orientation:Minus strand<br>
 Size:197,028 bases<br>
-<br>
+
 > RTEL1 gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=RTEL1<br>
 chr20:62,289,163-62,328,416(GRCh37/hg19)<br>
 Orientation:Plus strand<br>
