@@ -27,17 +27,18 @@ chr20:62,289,163-62,328,416(GRCh37/hg19)<br>
 Orientation:Plus strand<br>
 Size:39,254 bases<br>
 
-> TINF2 gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=TINF2
-chr14:24,708,849-24,711,880(GRCh37/hg19)
-Orientation:Minus strand
-Size:3,032 bases
+> TINF2 gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=TINF2<br>
+chr14:24,708,849-24,711,880(GRCh37/hg19)<br>
+Orientation:Minus strand<br>
+Size:3,032 bases<br>
 
-> TERF1 gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=TERF1
-chr8:73,921,097-73,960,357(GRCh37/hg19)
-Orientation:Plus strand
-Size:39,261 bases
+> TERF1 gene: https://www.genecards.org/cgi-bin/carddisp.pl?gene=TERF1<br>
+chr8:73,921,097-73,960,357(GRCh37/hg19)<br>
+Orientation:Plus strand<br>
+Size:39,261 bases<br>
 
-BED file: save as plain text and name as "TRG_genes.bed"
+<br>
+BED file: save as plain text and name as "TRG_genes.bed"<br>
 ```[Bash]
 chr3	169482308	169482848
 chr5	1253262	1295184
