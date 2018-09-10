@@ -110,7 +110,8 @@ readarray -t file_array < samplist
 
 # Merge all VCF's
 ```[Bash]
-vcf-merge $(echo ${file_array[@]}) > IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+outfile="IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf"
+vcf-merge $(echo ${file_array[@]}) > ${outfile}
 
 #Or perform the merging declaring all filenames:
 vcf-merge \
