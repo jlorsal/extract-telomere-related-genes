@@ -61,7 +61,11 @@ indir=${basedir}/${sample}
 outdir=${indir}
 infile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19
 outfile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG
-vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --recode-INFO-all --out ${outdir}/${outfile}.vcf
+vcftools --vcf ${basedir}/${sample}/${infile}.vcf \
+  --bed ${trg} \
+  --recode \
+  --recode-INFO-all \
+  --out ${outdir}/${outfile}.vcf
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf
 cp ${outdir}/${outfile}.vcf ./TRG/${outfile}.vcf
 done
@@ -75,7 +79,11 @@ indir=${basedir}/${sample}
 outdir=${indir}
 infile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19
 outfile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG
-vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --recode-INFO-all --out ${outdir}/${outfile}.vcf
+vcftools --vcf ${basedir}/${sample}/${infile}.vcf \
+  --bed ${trg} \
+  --recode \
+  --recode-INFO-all \
+  --out ${outdir}/${outfile}.vcf
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf
 cp ${outdir}/${outfile}.vcf ./TRG/${outfile}.vcf
 done
