@@ -67,7 +67,11 @@ vcftools --vcf ${basedir}/${sample}/${infile}.vcf \
   --recode-INFO-all \
   --out ${outdir}/${outfile}.vcf
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf
-cp ${outdir}/${outfile}.vcf ./TRG/${outfile}.vcf
+grep "^#" ${outdir}/${outfile}.vcf > header
+grep "PASS" ${outdir}/${outfile}.vcf > body
+cat header body > ${outdir}/${outfile}.PASS.vcf
+rm header body
+cp ${outdir}/${outfile}.PASS.vcf ${basedir}/TRG/${outfile}.PASS.vcf
 done
 ```
 #And this code
@@ -85,15 +89,19 @@ vcftools --vcf ${basedir}/${sample}/${infile}.vcf \
   --recode-INFO-all \
   --out ${outdir}/${outfile}.vcf
 mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf
-cp ${outdir}/${outfile}.vcf ./TRG/${outfile}.vcf
+grep "^#" ${outdir}/${outfile}.vcf > header
+grep "PASS" ${outdir}/${outfile}.vcf > body
+cat header body > ${outdir}/${outfile}.PASS.vcf
+rm header body
+cp ${outdir}/${outfile}.PASS.vcf ${basedir}/TRG/${outfile}.PASS.vcf
 done
 ```
 
 #Then bgzip compress and tabix:
 ```[Bash]
-indir=${basedir}
-cd ${indir}/TRG/
-for file in $(ls *.TRG.vcf)
+indir=${basedir}/TRG
+cd ${indir}
+for file in $(ls *.TRG.PASS.vcf)
 do
 bgzip -c ${file} > ${file}.gz
 tabix -p vcf ${file}.gz
@@ -102,16 +110,16 @@ done
 
 #Prepare an array with file names and store it in 'samplist' file
 ```[Bash]
-find . -type f -name "*.TRG.vcf.gz" | sort | sed -e 's/^.\///g' > samplist
+find ${indir} -type f -name "*.TRG.PASS.vcf.gz" | sort | sed -e 's/^.\///g' > ${indir}/samplist
 
 #Pass the content of this file into the array
-readarray -t file_array < samplist
+readarray -t file_array < ${indir}/samplist
 ```
 
 # Merge all VCF's
 ```[Bash]
-outfile="IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf"
-vcf-merge $(echo ${file_array[@]}) > ${outfile}
+outfile="IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.PASS.vcf"
+vcf-merge $(echo ${file_array[@]}) > ${indir}/${outfile}
 
 #Or perform the merging declaring all filenames:
 vcf-merge \
