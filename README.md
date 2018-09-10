@@ -137,4 +137,53 @@ IPFBCN11.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz 
 IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz > IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
 ```
 
+# Extract selected INFO fields
+```[Bash]
+for i in {1..9}
+do
+vcftools --vcf IPFBCN0${i}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.PASS.vcf \
+  --recode \
+  --recode-INFO InterVar_automated \
+  --recode-INFO M-CAP_pred \
+  --recode-INFO MetaLR_pred \
+  --recode-INFO SNPEFF_IMPACT \
+  --recode-INFO SNPEFF_FUNCTIONAL_CLASS \
+  --recode-INFO SNPEFF_EFFECT \
+  --recode-INFO SNPEFFECT_GENE_BIOTYPE \
+  --recode-INFO SNPEFF_GENE_NAME \
+  --out tmp
+mv tmp.recode.vcf IPFBCN0${i}.selectedINFOfields.vcf
+done
+
+for i in {10..12}
+do
+vcftools --vcf IPFBCN${i}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.PASS.vcf \
+  --recode \
+  --recode-INFO InterVar_automated \
+  --recode-INFO M-CAP_pred \
+  --recode-INFO MetaLR_pred \
+  --recode-INFO SNPEFF_IMPACT \
+  --recode-INFO SNPEFF_FUNCTIONAL_CLASS \
+  --recode-INFO SNPEFF_EFFECT \
+  --recode-INFO SNPEFFECT_GENE_BIOTYPE \
+  --recode-INFO SNPEFF_GENE_NAME \
+  --out tmp
+mv tmp.recode.vcf IPFBCN${i}.selectedINFOfields.vcf
+done
+
+#Repeat for the ALL VCF file
+vcftools --vcf IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.PASS.vcf \
+  --recode \
+  --recode-INFO InterVar_automated \
+  --recode-INFO M-CAP_pred \
+  --recode-INFO MetaLR_pred \
+  --recode-INFO SNPEFF_IMPACT \
+  --recode-INFO SNPEFF_FUNCTIONAL_CLASS \
+  --recode-INFO SNPEFF_EFFECT \
+  --recode-INFO SNPEFFECT_GENE_BIOTYPE \
+  --recode-INFO SNPEFF_GENE_NAME \
+  --out tmp
+mv tmp.recode.vcf IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.PASS.selectedINFOfields.vcf
+```
+
 #End of Script
