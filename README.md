@@ -52,16 +52,18 @@ chrX	153991031	154005964
 ```[Bash]
 module load vcftools/0.1.14 htslib/1.3.1
 basedir=/lustre/jlorsal/hiseq4000/run40/soloIPF
+trg=${basedir}/TRG_genes.bed
+
 for i in {1..9}
 do
 sample=IPFBCN0${i}
 indir=${basedir}/${sample}
 outdir=${indir}
-trg=${basedir}/TRG_genes
 infile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19
 outfile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG
-vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --out ${outdir}/${outfile}.vcf
-mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf 
+vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --recode-INFO-all --out ${outdir}/${outfile}.vcf
+mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf
+cp ${outdir}/${outfile}.vcf ./TRG/${outfile}.vcf
 done
 ```
 #And this code
@@ -71,97 +73,38 @@ do
 sample=IPFBCN${i}
 indir=${basedir}/${sample}
 outdir=${indir}
-trg=${basedir}/TRG_genes
 infile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19
 outfile=${sample}.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG
-vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --out ${outdir}/${outfile}.vcf
-mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf 
+vcftools --vcf ${basedir}/${sample}/${infile}.vcf --bed ${trg} --recode --recode-INFO-all --out ${outdir}/${outfile}.vcf
+mv ${outdir}/${outfile}.vcf.recode.vcf ${outdir}/${outfile}.vcf
+cp ${outdir}/${outfile}.vcf ./TRG/${outfile}.vcf
 done
 ```
-#Copy VCF's of interest to a safe place
+
+#Then bgzip compress and tabix:
 ```[Bash]
-find . -type f -name "*.TRG.vcf" | sort > ./TRG/TRG_list
-# Or
-find . -type f -name "*.TRG.vcf" -exec basename {} \; | sort
-indir=${indir}
-cp ${indir}/IPFBCN01/IPFBCN01.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN02/IPFBCN02.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN03/IPFBCN03.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN04/IPFBCN04.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-
-cp ${indir}/IPFBCN05/IPFBCN05.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN06/IPFBCN06.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN07/IPFBCN07.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN08/IPFBCN08.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-
-cp ${indir}/IPFBCN09/IPFBCN09.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN10/IPFBCN10.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN11/IPFBCN11.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-cp ${indir}/IPFBCN12/IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf ${indir}/TRG/
-
-# Then bgzip compress and tabix:
+indir=${basedir}
 cd ${indir}/TRG/
-infile=IPFBCN01.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
+for file in $(ls *.TRG.vcf)
+do
+bgzip -c ${file} > ${file}.gz
+tabix -p vcf ${file}.gz
+done
+```
 
-infile=IPFBCN02.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
+#Prepare an array with file names and store it in 'samplist' file
+```[Bash]
+find . -type f -name "*.TRG.vcf.gz" | sort | sed -e 's/^.\///g' > samplist
 
-infile=IPFBCN03.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN04.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN05.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN06.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN07.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN08.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN09.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN10.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN11.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
-
-infile=IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
-outfile=${infile}.gz
-bgzip -c ${infile} > ${outfile}
-tabix -p vcf ${outfile}
+#Pass the content of this file into the array
+readarray -t file_array < samplist
+```
 
 # Merge all VCF's
+```[Bash]
+vcf-merge $(echo ${file_array[@]}) > IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+
+#Or perform the merging declaring all filenames:
 vcf-merge \
 IPFBCN01.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
 IPFBCN02.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
@@ -174,7 +117,7 @@ IPFBCN08.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz 
 IPFBCN09.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
 IPFBCN10.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
 IPFBCN11.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz \
-IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz > IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz
-
+IPFBCN12.SNP_INDEL.recalibrated.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf.gz > IPFBCN.AllIndividuals.ANNOVAR.snpEff.GATK.annotations.hg19.TRG.vcf
+```
 
 #End of Script
